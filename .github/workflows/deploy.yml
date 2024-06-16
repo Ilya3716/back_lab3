@@ -12,7 +12,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v2
       
-      - name: Update code
+      - name: Update code and start the app
         uses: appleboy/ssh-action@v1.0.3
         with:
           host: ${{ secrets.HOST }}
@@ -23,5 +23,3 @@ jobs:
             git pull origin main
             npm install
             npm run dev
-        env:
-          DEBUG: true
