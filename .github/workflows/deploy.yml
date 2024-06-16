@@ -8,21 +8,18 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout code
+      - name: Checkout repository
         uses: actions/checkout@v2
-
-      - name: Setup SSH
+      
+      - name: Update code via SSH
         uses: appleboy/ssh-action@v1.0.3
         with:
-          ssh-private-key: ${{ secrets.DEPLOY_KEY }}
-
-      - name: Install Node.js and npm
-        uses: actions/setup-node@v2
-        with:
-          node-version: '14'  # укажите версию Node.js, если это необходимо
-
-      - name: Install dependencies and start application
-        run: |
-          ssh -o StrictHostKeyChecking=no snusp@158.160.91.107 'cd /back_lab3 && npm install && npm run dev'
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: |
+            cd /path/to/your/app
+            git pull origin main
+            npm install
+            npm run dev
