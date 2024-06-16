@@ -23,12 +23,6 @@ jobs:
             git pull origin main
             npm install
             npm run dev &
-            # Запуск приложения в фоновом режиме
-
-            # Ожидание завершения процесса приложения
-            while pgrep -f "node index.js" > /dev/null; do
-              sleep 5
-            done
-
-            # Приложение успешно запущено, завершаем скрипт
-            exit 0
+            sleep 20
+            pkill -f "npm run dev" || true 
+            exit 0         
